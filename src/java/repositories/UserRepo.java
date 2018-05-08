@@ -5,42 +5,50 @@
  */
 package repositories;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.annotation.Resource;
+import javax.annotation.sql.DataSourceDefinition;
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 
+@DataSourceDefinition(
+        name = "java:global/onlinefoodorder/foodorder",
+        className = "org.apache.derby.jdbc.ClientDataSource",
+        url = "jdbc:derby://localhost:1527/foodorder",
+        databaseName = "foodorder",
+        user = "dedeler",
+        password = "dedeler"
+)
+
 /**
  *
  * @author Akın
  */
-public class UserRepo {
+@Named(value="userRepo")
+@SessionScoped
+public class UserRepo implements Serializable{
 
     private String userId;
     private String password;
     private String email;
 
-    
+    @Resource(lookup = "java:global/onlinefoodorder/foodorder")
     DataSource dataSource;
-
-    public UserRepo() {
-        try {
-            Context ctx = new InitialContext();
-            dataSource = (DataSource) ctx.lookup("jdbc/foodorder");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
-    }
 
     public String getUserId() {
         return userId;
     }
 
+    
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -61,7 +69,7 @@ public class UserRepo {
         this.email = email;
     }
 
-   /* public Boolean validateEmail(String email) {                                          //
+    /* public Boolean validateEmail(String email) {                                          //
         return getEmail().equals("asd@asd");                                                //
     }                                                               
 
@@ -71,9 +79,8 @@ public class UserRepo {
 
     public Boolean validatePassword(String password) {                                      //
         return getPassword().equals("asd");
-    } */ 
-
-    public boolean validate(String email, String password) throws SQLException {
+    } */
+    public boolean validate() throws SQLException {
         // check whether dataSource was injected by the server
         String tempEmail = null;
         String tempPassword = null;
@@ -93,10 +100,10 @@ public class UserRepo {
         try {
             // create a PreparedStatement to insert a new address book entry
             PreparedStatement ps
-                    = connection.prepareStatement("select customer.email, customer.password"
-                            + "where customer.email=? and customer.password=?");
-            ps.setString(1, email);
-            ps.setString(2, password);
+                    = connection.prepareStatement("select email, password from customer "
+                            + "where email=? and password=?");
+            ps.setString(1, getEmail());
+            ps.setString(2, getPassword());
             rs = ps.executeQuery();
             while (rs.next()) {
                 tempEmail = rs.getString("email");
@@ -107,10 +114,23 @@ public class UserRepo {
             }
             return false;
         } // end try
-        
         finally {
             connection.close(); // return this connection to pool
 
         } // end finally
+    }
+    
+        public String nextPage() {
+        try {
+
+            if (validate()) {
+                return "index";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return "signin";
+
     }
 }

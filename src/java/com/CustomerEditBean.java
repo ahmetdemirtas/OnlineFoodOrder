@@ -32,7 +32,7 @@ import org.primefaces.event.FlowEvent;
 @ViewScoped
 public class CustomerEditBean implements Serializable {
 
-    @ManagedProperty(value = "#{customer}")
+//    @ManagedProperty(value = "#{customer}")
     private Customer customer;
 
     private boolean skip;
