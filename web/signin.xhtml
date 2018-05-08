@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+        <f:metadata>
+            <f:viewAction action="#{signIn.onPageLoad}" />
+        </f:metadata>
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/signin.css"/>
+
+        </ui:define>
+        <ui:define name="body" class="text-center" >
+            <h:form styleClass="form-signin" >
+                <img class="mb-4" src="http://www.ssirn.com/Images/login.png" alt="" width="72" height="72"></img>
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="inputEmail" class="sr-only">Email address</label>
+                <h:inputText a:type="email" styleClass="form-control" value ="#{signIn.email}" 
+                             a:placeholder="Email address" required="true" ></h:inputText>
+                <label for="inputPassword" class="sr-only">Password</label>
+                <h:inputSecret id="password" a:type="password" value="#{signIn.password}"  
+                               styleClass="form-control" a:placeholder="Password" required="true"
+                               validatorMessage="Password should be 6-8 characters long">
+                    <f:validateLength minimum="6" maximum="8" />
+
+                </h:inputSecret>
+                <h:message for="password" style="color:red" />
+                
+                <h:commandButton action="#{signIn.nextPage()}" styleClass="btn btn-lg btn-primary btn-block" value="Sign In"></h:commandButton>
+                <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
