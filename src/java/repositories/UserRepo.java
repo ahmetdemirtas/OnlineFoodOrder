@@ -69,17 +69,7 @@ public class UserRepo implements Serializable{
         this.email = email;
     }
 
-    /* public Boolean validateEmail(String email) {                                          //
-        return getEmail().equals("asd@asd");                                                //
-    }                                                               
-
-    public Boolean validate(String email, String password) {                                // debug amaçlı
-        return this.validateEmail(email) && this.validatePassword(password);
-    }
-
-    public Boolean validatePassword(String password) {                                      //
-        return getPassword().equals("asd");
-    } */
+    
     public boolean validate() throws SQLException {
         // check whether dataSource was injected by the server
         String tempEmail = null;
