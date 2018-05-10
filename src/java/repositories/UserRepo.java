@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import javax.annotation.Resource;
 import javax.annotation.sql.DataSourceDefinition;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -142,6 +143,9 @@ public class UserRepo implements Serializable {
                 tempPassword = rs.getString("password");
             }
             if (tempEmail.equalsIgnoreCase(email) && tempPassword.equals(password)) {
+                FacesContext context = FacesContext.getCurrentInstance();
+
+                context.getExternalContext().getSessionMap().put("user", tempEmail);
                 return true;
             }
             return false;
@@ -156,14 +160,14 @@ public class UserRepo implements Serializable {
         try {
 
             if (validate()) {
-                save();
-                return "mainpage";
+                save();                
+                return "mainpage?faces-redirect=true";
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        return "signin";
+        return "signin?faces-redirect=true";
 
     }
 

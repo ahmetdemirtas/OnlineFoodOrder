@@ -21,7 +21,7 @@ public class Logout implements Serializable{
     
     public String logout() {
         //FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "signin";
+        return "signin?faces-redirect=true";
     }
 
 }
