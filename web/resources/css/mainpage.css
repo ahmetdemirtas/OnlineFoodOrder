@@ -1,0 +1,49 @@
+/*!
+ * Start Bootstrap - 3 Col Portfolio (https://startbootstrap.com/template-overviews/3-col-portfolio)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-3-col-portfolio/blob/master/LICENSE)
+ */
+
+body {
+    /*padding-top: 54px;*/
+}
+
+@media (min-width: 992px) {
+    body {
+        /*padding-top: 56px;*/
+    }
+}
+
+.portfolio-item {
+    margin-bottom: 30px;
+}
+
+.pagination {
+    margin-bottom: 30px;
+}
+.ortala{
+    padding: 39px;
+}
+.margin_puan{
+    margin-left: inherit;
+}
+.text_ortala{
+    text-align: center;
+}
+
+
+.card-img-top {
+    width: 100%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.puan-resize {
+    width: 30%;
+    border-top-left-radius: calc(0.25rem - 1px);
+    border-top-right-radius: calc(0.25rem - 1px);
+}
+
+.wallet-padding{
+    margin-left: 25px;
+}

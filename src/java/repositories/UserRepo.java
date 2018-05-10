@@ -33,22 +33,65 @@ import javax.sql.rowset.CachedRowSet;
  *
  * @author Akın
  */
-@Named(value="userRepo")
+@Named(value = "userRepo")
 @SessionScoped
-public class UserRepo implements Serializable{
+public class UserRepo implements Serializable {
 
     private String userId;
     private String password;
     private String email;
-
+    private String firstName;
+    private String lastName;
+    private String addressId;
+    private String phoneNumber;
+    private String wallet;
     @Resource(lookup = "java:global/onlinefoodorder/foodorder")
     DataSource dataSource;
+
+    public String getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(String wallet) {
+        this.wallet = wallet;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(String addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
     public String getUserId() {
         return userId;
     }
 
-    
     public void setUserId(String userId) {
         this.userId = userId;
     }
@@ -69,7 +112,6 @@ public class UserRepo implements Serializable{
         this.email = email;
     }
 
-    
     public boolean validate() throws SQLException {
         // check whether dataSource was injected by the server
         String tempEmail = null;
@@ -99,7 +141,7 @@ public class UserRepo implements Serializable{
                 tempEmail = rs.getString("email");
                 tempPassword = rs.getString("password");
             }
-            if (tempEmail.equals(email) && tempPassword.equals(password)) {
+            if (tempEmail.equalsIgnoreCase(email) && tempPassword.equals(password)) {
                 return true;
             }
             return false;
@@ -109,12 +151,13 @@ public class UserRepo implements Serializable{
 
         } // end finally
     }
-    
-        public String nextPage() {
+
+    public String nextPage() {
         try {
 
             if (validate()) {
-                return "index";
+                save();
+                return "mainpage";
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,4 +166,45 @@ public class UserRepo implements Serializable{
         return "signin";
 
     }
+
+    public void save() throws SQLException {
+        ResultSet rs = null;
+        if (dataSource == null) {
+            throw new SQLException("Unable to obtain DataSource");
+        }
+
+        // obtain a connection from the connection pool
+        Connection connection = dataSource.getConnection();
+
+        // check whether connection was successful
+        if (connection == null) {
+            throw new SQLException("Unable to connect to DataSource");
+        }
+
+        try {
+            // create a PreparedStatement to insert a new address book entry
+            PreparedStatement ps
+                    = connection.prepareStatement("select firstname, lastname, customerid, addressid, phonenumber, wallet, email from customer "
+                            + "where email=? and password=?");
+            ps.setString(1, getEmail());
+            ps.setString(2, getPassword());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                firstName = rs.getString("firstname");
+                lastName = rs.getString("lastname");
+                userId = rs.getString("customerid");
+                addressId = rs.getString("addressid");
+                phoneNumber = rs.getString("phonenumber");
+                wallet = rs.getString("wallet");
+                email = rs.getString("email");
+
+            }
+
+        } // end try // end try
+        finally {
+            connection.close(); // return this connection to pool
+
+        } // end finally
+    }
+
 }

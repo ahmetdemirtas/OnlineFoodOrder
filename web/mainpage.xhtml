@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/mainpage.css"/>
+
+        </ui:define>
+        <ui:define name="body" >
+             <div id="page">
+            <div id="header-container">
+                <div id="header">
+                    <ui:insert name="header">
+                        <ui:include src="header.xhtml" />
+                    </ui:insert>
+                    
+                </div>
+            </div>
+        </div>
+
+            <!-- Page Content -->
+            <div class="container">
+
+                <!-- Page Heading -->
+                <h1 class="my-4">Restoranlar
+                       
+                </h1>
+                
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h:graphicImage name="resimler/burger-king.png" styleClass="card-img-top"/> 
+                            <div class="card-body">
+                                <h4 style="text-align: center" class="card-title">
+                                    <a href="#">Burger King</a>
+                                </h4>
+                                <hr></hr>
+
+                                <b style="text-align: center" class="ortala">PUAN:</b>
+
+                                <h:graphicImage name="resimler/7_puan.png" styleClass="rounded-circle img-fluid d-block mx-auto, margin_puan, puan-resize"/>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h:graphicImage name="resimler/Papa_Johns.jpg" styleClass="card-img-top"/>
+                            <div class="card-body">
+                                <h4 style="text-align: center" class="card-title">
+                                    <a href="#">Papa John's Pizza</a>
+                                </h4>
+                                <hr></hr>
+
+                                <b style="text-align: center" class="ortala">PUAN:</b>
+
+                                <h:graphicImage name="resimler/7_puan.png" styleClass="rounded-circle img-fluid d-block mx-auto, margin_puan, puan-resize"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h:graphicImage name="resimler/KFC_Logo.png" styleClass="card-img-top"/>
+                            <div class="card-body">
+                                <h4 style="text-align: center" class="card-title">
+                                    <a href="#">KFC</a>
+                                </h4>
+                                <hr></hr>
+
+                                <b style="text-align: center" class="ortala">PUAN:</b>
+
+                                <h:graphicImage name="resimler/7_puan.png" styleClass="rounded-circle img-fluid d-block mx-auto, margin_puan, puan-resize"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h:graphicImage name="resimler/HD_Logo.jpg" styleClass="card-img-top"/>
+                            <div class="card-body">
+                                <h4 style="text-align: center" class="card-title">
+                                    <a href="#">HD İskender</a>
+                                </h4>
+                                <hr></hr>
+
+                                <b style="text-align: center" class="ortala">PUAN:</b>
+
+                                <h:graphicImage name="resimler/7_puan.png" styleClass="rounded-circle img-fluid d-block mx-auto, margin_puan, puan-resize"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h:graphicImage name="resimler/Sbarro_Logo.png" styleClass="card-img-top"/>
+                            <div class="card-body">
+                                <h4 style="text-align: center" class="card-title">
+                                    <a href="#">Sbarro</a>
+                                </h4>
+                                <hr></hr>
+
+                                <b style="text-align: center" class="ortala">PUAN:</b>
+
+                                <h:graphicImage name="resimler/7_puan.png" styleClass="rounded-circle img-fluid d-block mx-auto, margin_puan, puan-resize"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 portfolio-item">
+                        <div class="card h-100">
+                            <h:graphicImage name="resimler/Midyeci_Ahmet_Logo.jpg" styleClass="card-img-top"/>
+                            <div class="card-body">
+                                <h4 style="text-align: center" class="card-title">
+                                    <a href="#">Midyeci Ahmet</a>
+                                </h4>
+                                <hr></hr>
+
+                                <b style="text-align: center" class="ortala">PUAN:</b>
+
+                                <h:graphicImage name="resimler/7_puan.png" styleClass="rounded-circle img-fluid d-block mx-auto, margin_puan, puan-resize"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <!-- Pagination -->
+
+
+            </div>
+
+        </ui:define>
+    </ui:composition>
+
+</html>
