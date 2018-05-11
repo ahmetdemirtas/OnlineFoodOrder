@@ -8,6 +8,10 @@
         <param-name>primefaces.THEME</param-name>
         <param-value>vader</param-value>
     </context-param>
+    <context-param>
+        <param-name>primefaces.FONT_AWESOME</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -16,7 +20,7 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
-         <url-pattern>/javax.faces.resource/*</url-pattern>
+        <url-pattern>/javax.faces.resource/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -27,24 +31,24 @@
         <welcome-file>faces/signin.xhtml</welcome-file>
     </welcome-file-list>
     <mime-mapping>
-      <extension>ttf</extension>
-      <mime-type>css/fonts</mime-type>
+        <extension>ttf</extension>
+        <mime-type>css/fonts</mime-type>
     </mime-mapping>
     <mime-mapping>
-      <extension>otf</extension>
-      <mime-type>font/opentype</mime-type>
+        <extension>otf</extension>
+        <mime-type>font/opentype</mime-type>
     </mime-mapping>
     <mime-mapping>
-      <extension>woff2</extension>
-      <mime-type>font/woff2</mime-type>
+        <extension>woff2</extension>
+        <mime-type>font/woff2</mime-type>
     </mime-mapping>  
     <mime-mapping>
-      <extension>woff</extension>
-      <mime-type>font/woff</mime-type>
+        <extension>woff</extension>
+        <mime-type>font/woff</mime-type>
     </mime-mapping>  
     <mime-mapping>
-      <extension>eot</extension>
-      <mime-type>application/vnd.ms-fontobject</mime-type>
+        <extension>eot</extension>
+        <mime-type>application/vnd.ms-fontobject</mime-type>
     </mime-mapping>
         
 </web-app>

@@ -8,7 +8,7 @@
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
     <ui:composition template="/WEB-INF/include/template.xhtml">
 <!--        <f:metadata>
-            <f:viewAction action="#{signIn.onPageLoad}" />
+            <f:viewAction action="#" />
         </f:metadata>-->
         <ui:define name="head">
             <title>Hello JSF Bootstrap</title>
@@ -33,7 +33,27 @@
                 <h:message for="password" style="color:red" />
                 
                 <h:commandButton action="#{userRepo.nextPage()}" styleClass="btn btn-lg btn-primary btn-block" value="Sign In"></h:commandButton>
-                <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <!-- SABİT FOOTER -->
+
+                <div class="container, center-block">
+                    <hr />
+                    <div class="text-center center-block">
+                        <a href="https://www.facebook.com/Dedeler-Market-581244565292923/"><i class="fa fa-facebook-square fa-3x social"></i></a>
+                        <a href="https://twitter.com/dedecikim"><i class="fa fa-twitter-square fa-3x social"></i></a>
+                        <a href="https://plus.google.com/117503441386864678813"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+                        <a href="mailto:dedeler@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                        <br/>
+                        <br/>
+                        <p class="txt-railway" style=" font-size: 15px">- ©2018, DEDELER, All rights Reserved-</p>
+                    </div>
+                    <hr />
+                </div>
+                
+                <!-- /SABİT FOOTER -->
 
             </h:form>
         </ui:define>
