@@ -5,118 +5,48 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:p="http://primefaces.org/ui">
 
-    <f:view contentType="text/html">
         <h:head>
-            <f:facet name="first">
+            <f:facet name="editCustomer">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Edit Customer</title>
             </f:facet>
         </h:head>
 
         <h:body>
-
             <h:form>
+                <p:growl id="msgs" showDetail="true" />
 
-                <p:growl id="growl" sticky="true" showDetail="true"/>
+                <h3>You can change your password, address and phone number</h3>
 
-                <p:wizard flowListener="#{customerEditBean.onFlowProcess}">
-                    <p:tab id="personal" title="Password">
-                        <p:panel header="Change Password">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputLabel for="pwd1" value="New Password: " />
-                                <p:password id="pwd1" value="#{customerEditBean.newPassword1}" match="pwd2" label="New Password" required="false" feedback="true"
-                                            promptLabel="Please enter new password" weakLabel="Week"
-                                            goodLabel="Good" strongLabel="Strong" />
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="10">
+                            <h:outputLabel for="pwd1" value="New Password: " />
+                            <p:password id="pwd1" value="#{customer.newPassword}" match="pwd2" label="New Password" feedback="true"
+                                        promptLabel="Please enter new password" weakLabel="Weak"
+                                        goodLabel="Good" strongLabel="Strong" />
 
-                                <h:outputLabel for="pwd2" value="Confirm Password: " />
-                                <p:password id="pwd2" value="#{customerEditBean.newPassword2}" label="Confirm Password" required="false" promptLabel="Confirm new password"/>
+                            <h:outputLabel for="pwd2" value="Confirm Password: " />
+                            <p:password id="pwd2" label="Confirm Password" required="false" promptLabel="Confirm new password"/>
 
-                                <h:outputText value="Skip to last: " />
-                                <h:selectBooleanCheckbox value="#{customerEditBean.skip}" />
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
+                            <h:outputText value="Street: " />
+                            <p:inputText value="#{customer.newStreet}" />
 
-                    <p:tab id="address" title="Address">
-                        <p:panel header="Change Address">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Street: " />
-                                <p:inputText value="#{customerEditBean.customer.street}" />
+                            <h:outputText value="Apartment: " />
+                            <p:inputText value="#{customer.newApartment}" />
 
-                                <h:outputText value="Apartment: " />
-                                <p:inputText value="#{customerEditBean.customer.apartment}" />
+                            <h:outputText value="Province: " />
+                            <p:inputText value="#{customer.newProvince}" />
 
-                                <h:outputText value="Province: " />
-                                <p:inputText value="#{customerEditBean.customer.province}" />
+                            <h:outputText value="Town: " />
+                            <p:inputText value="#{customer.newTown}" />
 
-                                <h:outputText value="Town: " />
-                                <p:inputText value="#{customerEditBean.customer.town}" />
-
-                                <h:outputText value="District: " />
-                                <p:inputText value="#{customerEditBean.customer.district}" />
-
-                                <h:outputText value="Skip to last: " />
-                                <h:selectBooleanCheckbox value="#{customerEditBean.skip}" />
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="phone" title="Phone">
-                        <p:panel header="Change phone number">
-                            <p:messages />
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <h:outputText value="Phone: " />
-                                <p:inputText value="#{customerEditBean.customer.phone}" label="Phone"/>
-                            </h:panelGrid>
-                        </p:panel>
-                    </p:tab>
-
-                    <p:tab id="confirm" title="Confirmation">
-                        <p:panel header="Confirmation">
-                            <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Firstname: " />
-                                    <h:outputText value="#{customerEditBean.customer.firstname}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Lastname: " />
-                                    <h:outputText value="#{customerEditBean.customer.lastname}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Customer ID: " />
-                                    <h:outputText value="#{customerEditBean.customer.customerID}" styleClass="outputLabel"/>
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Street: " />
-                                    <h:outputText value="#{customerEditBean.customer.street}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Apartment: " />
-                                    <h:outputText value="#{customerEditBean.customer.apartment}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="District/Town/Province: " />
-                                    <h:outputText value="#{customerEditBean.customer.district} / #{customerEditBean.customer.town} / #{customerEditBean.customer.province}" styleClass="outputLabel"/>
-                                </h:panelGrid>
-
-                                <h:panelGrid columns="2" columnClasses="label, value">
-                                    <h:outputText value="Email: " />
-                                    <h:outputText value="#{customerEditBean.customer.email}" styleClass="outputLabel"/>
-
-                                    <h:outputText value="Phone " />
-                                    <h:outputText value="#{customerEditBean.customer.phone}" styleClass="outputLabel"/>
-
-                                    <h:outputText />
-                                    <h:outputText />
-                                </h:panelGrid>
-                            </h:panelGrid>
-
-                            <p:commandButton value="Save" actionListener="#{customerEditBean.save}" update="growl" process="@this"/>
-                        </p:panel>
-                    </p:tab>
-                </p:wizard>
-
+                            <h:outputText value="District: " />
+                            <p:inputText value="#{customer.newDistrict}" />
+                            
+                            <h:outputText value="Phone: " />
+                            <p:inputText value="#{customer.newPhone}" label="Phone"/>
+                        </h:panelGrid>
+                        <h:commandButton value="Save" action="#{customer.save()}" styleClass="btn btn-lg btn-primary btn-block"/>
             </h:form>
         </h:body>
-
-    </f:view>
 </html>
