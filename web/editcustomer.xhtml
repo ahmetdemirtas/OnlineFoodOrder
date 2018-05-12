@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+<!--        <f:metadata>
+            <f:viewAction action="#{signIn.onPageLoad}" />
+        </f:metadata>-->
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/editcustomer.css"/>
+
+        </ui:define>
+        <ui:define name="body" >
+            <h3 style="text-align: center">You can change your password, address and phone number</h3>
+            <div class="formcenter">
+            <h:form >
+                <p:growl id="msgs" showDetail="true" />
+
+                
+                <br/>
+                <br/>
+
+                        <p:messages />
+                        <h:panelGrid columns="2" columnClasses="label, value" cellpadding="10">
+                            <h:outputLabel for="pwd1" value="New Password: " styleClass="formele"/>
+                            <p:password id="pwd1" value="#{customer.newPassword}" match="pwd2" label="New Password" feedback="true"
+                                        promptLabel="Please enter new password" weakLabel="Weak"
+                                        goodLabel="Good" strongLabel="Strong" />
+
+                            <h:outputLabel for="pwd2" value="Confirm Password: " styleClass="formele" />
+                            <p:password id="pwd2" label="Confirm Password" required="false" promptLabel="Confirm new password"/>
+
+                            <h:outputText value="Street: " styleClass="formele"/>
+                            <p:inputText value="#{customer.newStreet}" />
+
+                            <h:outputText value="Apartment: " styleClass="formele"/>
+                            <p:inputText value="#{customer.newApartment}" />
+
+                            <h:outputText value="Province: " styleClass="formele"/>
+                            <p:inputText value="#{customer.newProvince}" />
+
+                            <h:outputText value="Town: " styleClass="formele"/>
+                            <p:inputText value="#{customer.newTown}" />
+
+                            <h:outputText value="District: " styleClass="formele"/>
+                            <p:inputText value="#{customer.newDistrict}" />
+                            
+                            <h:outputText value="Phone: " styleClass="formele"/>
+                            <p:inputText value="#{customer.newPhone}" label="Phone"/>
+                        </h:panelGrid>
+                        <br/>
+                        <br/>
+                        <h:commandButton value="Save" action="#{customer.save()}" styleClass="btn btn-lg btn-primary text-center savebutton"/>
+            </h:form>
+            </div>
+         </ui:define>
+    </ui:composition>
+
+</html>
