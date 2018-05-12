@@ -10,9 +10,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.annotation.sql.DataSourceDefinition;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
@@ -47,7 +52,16 @@ public class Customer implements Serializable {
     private String town;
     private String district;
 
-    public void customerSetupFromDB() throws SQLException{
+    private String newPassword;
+    private String newStreet;
+    private String newApartment;
+    private String newProvince;
+    private String newTown;
+    private String newDistrict;
+    private String newPhone;
+
+    public void init() throws SQLException {
+
         if (dataSource == null) {
             throw new SQLException("Unable to obtain to Datasource");
         }
@@ -57,33 +71,143 @@ public class Customer implements Serializable {
         if (connection == null) {
             throw new SQLException("Unable to connect to Datasource");
         }
-
-        try {
-            PreparedStatement getCustomer = connection.prepareStatement("SELECT * " +
-                    "FROM (SELECT CUSTOMERID, FIRSTNAME, LASTNAME, PASSWORD, EMAIL, PHONENUMBER, ADDRESSID, STREET, " + 
-                    "APARTMENT, PROVINCE, TOWN, DISTRICT FROM CUSTOMER INNER JOIN ADDRESS WHERE CUSTOMER.ADDRESSID = ADDRESS.ADDRESSID) " +
-                    "WHERE CUSTOMERID = ?");
-            getCustomer.setInt(1, 202); //test amaçlı customerID = 202
-            ResultSet resultSet = getCustomer.executeQuery();
-            while (resultSet.next()) {                
-                customerID = resultSet.getInt("CUSTOMERID");
-                firstname = resultSet.getString("FIRSTNAME");
-                lastname = resultSet.getString("LASTNAME");
-                password = resultSet.getString("PASSWORD");
-                email = resultSet.getString("EMAIL");
-                phone = resultSet.getString("PHONENUMBER");
-                addressID = resultSet.getInt("ADDRESSID");
-                street = resultSet.getString("STREET");
-                apartment = resultSet.getString("APARTMENT");
-                province = resultSet.getString("PROVINCE");
-                town = resultSet.getString("TOWN");
-                district = resultSet.getString("DISTRICT");
+            try {
+                PreparedStatement getCustomer = connection.prepareStatement("SELECT CUSTOMERID, FIRSTNAME, LASTNAME, PASSWORD, "
+                        + "EMAIL, PHONENUMBER, ADDRESSID, STREET, APARTMENT, PROVINCE, TOWN, DISTRICT FROM CUSTOMER NATURAL JOIN ADDRESS "
+                        + "WHERE CUSTOMERID = ?");
+                getCustomer.setInt(1, 202); //test amaçlı customerID = 202
+                ResultSet resultSet = getCustomer.executeQuery();
+                while (resultSet.next()) {
+                    customerID = resultSet.getInt("CUSTOMERID");
+                    firstname = resultSet.getString("FIRSTNAME");
+                    lastname = resultSet.getString("LASTNAME");
+                    password = resultSet.getString("PASSWORD");
+                    email = resultSet.getString("EMAIL");
+                    phone = resultSet.getString("PHONENUMBER");
+                    addressID = resultSet.getInt("ADDRESSID");
+                    street = resultSet.getString("STREET");
+                    apartment = resultSet.getString("APARTMENT");
+                    province = resultSet.getString("PROVINCE");
+                    town = resultSet.getString("TOWN");
+                    district = resultSet.getString("DISTRICT");
+                }
+            } finally {
+                connection.close();
             }
-        } finally {
-            connection.close();
         }
+
+    public void save() throws SQLException {
+        init();
+
+        if (dataSource == null) {
+            throw new SQLException("Unable to obtain to Datasource");
+        }
+
+        Connection connection = dataSource.getConnection();
+
+        if (connection == null) {
+            throw new SQLException("Unable to connect to Datasource");
+        }
+        try {
+            if (newPassword.length() > 0) {
+                setPassword(newPassword);
+                PreparedStatement updatePassword = connection.prepareStatement("UPDATE CUSTOMER SET PASSWORD = ? "
+                        + "WHERE CUSTOMERID = ?");
+                updatePassword.setString(1, getPassword());
+                updatePassword.setInt(2, getCustomerID());
+                updatePassword.executeUpdate();
+            }
+
+            if (newStreet.length() > 0 || newApartment.length() > 0 || newProvince.length() > 0 || newTown.length() > 0 || newDistrict.length() > 0) {
+                setStreet(newStreet);
+                setApartment(newApartment);
+                setProvince(newProvince);
+                setTown(newTown);
+                setDistrict(newDistrict);
+                PreparedStatement updateAddress = connection.prepareStatement("UPDATE ADDRESS SET STREET = ?, "
+                        + "APARTMENT = ?, PROVINCE = ?, TOWN = ?, DISTRICT = ? WHERE ADDRESSID = ?");
+                updateAddress.setString(1, getStreet());
+                updateAddress.setString(2, getApartment());
+                updateAddress.setString(3, getProvince());
+                updateAddress.setString(4, getTown());
+                updateAddress.setString(5, getDistrict());
+                updateAddress.setInt(6, getAddressID());
+                updateAddress.executeUpdate();
+            }
+
+            if (newPhone.length() > 0) {
+                setPhone(newPhone);
+                PreparedStatement updatePhone = connection.prepareStatement("UPDATE CUSTOMER SET PHONENUMBER = ? "
+                        + "WHERE CUSTOMERID = ?");
+                updatePhone.setString(1, getPhone());
+                updatePhone.setInt(2, getCustomerID());
+                updatePhone.executeUpdate();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Success", "Changes saved!"));
     }
-    
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public String getNewStreet() {
+        return newStreet;
+    }
+
+    public void setNewStreet(String newStreet) {
+        this.newStreet = newStreet;
+    }
+
+    public String getNewApartment() {
+        return newApartment;
+    }
+
+    public void setNewApartment(String newApartment) {
+        this.newApartment = newApartment;
+    }
+
+    public String getNewProvince() {
+        return newProvince;
+    }
+
+    public void setNewProvince(String newProvince) {
+        this.newProvince = newProvince;
+    }
+
+    public String getNewTown() {
+        return newTown;
+    }
+
+    public void setNewTown(String newTown) {
+        this.newTown = newTown;
+    }
+
+    public String getNewDistrict() {
+        return newDistrict;
+    }
+
+    public void setNewDistrict(String newDistrict) {
+        this.newDistrict = newDistrict;
+    }
+
+    public String getNewPhone() {
+        return newPhone;
+    }
+
+    public void setNewPhone(String newPhone) {
+        this.newPhone = newPhone;
+    }
+
     public int getCustomerID() {
         return customerID;
     }

@@ -1,0 +1,16 @@
+.savebutton{
+    max-width: 500px !important ;
+    margin: auto !important ;
+    padding: 10px !important ;
+}
+.formele{
+    color: #173d96 !important ;
+    font-size: 18px !important ;
+}
+
+.formcenter{
+    max-width: 500px !important ;
+    margin: auto !important ;
+    background: white !important ;
+    padding: 10px !important ;
+}
