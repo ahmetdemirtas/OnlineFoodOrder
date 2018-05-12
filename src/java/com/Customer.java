@@ -18,26 +18,22 @@ import javax.annotation.sql.DataSourceDefinition;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.sql.DataSource;
 import javax.sql.rowset.CachedRowSet;
 import javax.sql.rowset.RowSetProvider;
+import repositories.UserRepo;
 
-@DataSourceDefinition(
-        name = "java:global/onlinefoodorder/foodorder",
-        className = "org.apache.derby.jdbc.ClientDataSource",
-        url = "jdbc:derby://localhost:1527/foodorder",
-        databaseName = "foodorder",
-        user = "dedeler",
-        password = "dedeler"
-)
+
 
 @Named(value = "customer")
 @SessionScoped
 public class Customer implements Serializable {
 
-    @Resource(lookup = "java:global/onlinefoodorder/foodorder")
-    DataSource dataSource;
+    @Inject
+    private UserRepo userRepo;
+    
     
     private int customerID;
     private String firstname;
@@ -62,11 +58,11 @@ public class Customer implements Serializable {
 
     public void init() throws SQLException {
 
-        if (dataSource == null) {
+        if (userRepo.getDataSource() == null) {
             throw new SQLException("Unable to obtain to Datasource");
         }
 
-        Connection connection = dataSource.getConnection();
+        Connection connection = userRepo.getDataSource().getConnection();
 
         if (connection == null) {
             throw new SQLException("Unable to connect to Datasource");
@@ -74,8 +70,8 @@ public class Customer implements Serializable {
             try {
                 PreparedStatement getCustomer = connection.prepareStatement("SELECT CUSTOMERID, FIRSTNAME, LASTNAME, PASSWORD, "
                         + "EMAIL, PHONENUMBER, ADDRESSID, STREET, APARTMENT, PROVINCE, TOWN, DISTRICT FROM CUSTOMER NATURAL JOIN ADDRESS "
-                        + "WHERE CUSTOMERID = ?");
-                getCustomer.setInt(1, 202); //test amaçlı customerID = 202
+                        + "WHERE EMAIL = ?");
+                getCustomer.setString(1, userRepo.getEmail()); //test amaçlı customerID = 202 injectlendi userRepo, giriş yapılan email adresini alabiliriz
                 ResultSet resultSet = getCustomer.executeQuery();
                 while (resultSet.next()) {
                     customerID = resultSet.getInt("CUSTOMERID");
@@ -96,14 +92,14 @@ public class Customer implements Serializable {
             }
         }
 
-    public void save() throws SQLException {
+    public String save() throws SQLException {
         init();
 
-        if (dataSource == null) {
+        if (userRepo.getDataSource() == null) {
             throw new SQLException("Unable to obtain to Datasource");
         }
 
-        Connection connection = dataSource.getConnection();
+        Connection connection = userRepo.getDataSource().getConnection();
 
         if (connection == null) {
             throw new SQLException("Unable to connect to Datasource");
@@ -142,14 +138,21 @@ public class Customer implements Serializable {
                 updatePhone.setString(1, getPhone());
                 updatePhone.setInt(2, getCustomerID());
                 updatePhone.executeUpdate();
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage("Success", "Changes saved!"));
+                
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }finally {
+            connection.close(); // return this connection to pool
 
+        } // end finally
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Success", "Changes saved!"));
+        return "mainpage?faces-redirect=true";
+        
     }
 
     public String getNewPassword() {

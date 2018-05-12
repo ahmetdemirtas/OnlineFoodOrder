@@ -49,6 +49,16 @@ public class UserRepo implements Serializable {
     @Resource(lookup = "java:global/onlinefoodorder/foodorder")
     DataSource dataSource;
 
+    public DataSource getDataSource() {
+        return dataSource;
+    }
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    
+    
     public String getWallet() {
         return wallet;
     }
