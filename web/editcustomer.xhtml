@@ -16,15 +16,24 @@
 
         </ui:define>
         <ui:define name="body" >
+            
+            <div id="page">
+                <div id="header-container">
+                    <div id="header">
+                        <ui:insert name="header">
+                            <ui:include src="header.xhtml" />
+                        </ui:insert>
+
+                    </div>
+                </div>
+            </div>
+            
             <h3 style="text-align: center">You can change your password, address and phone number</h3>
             <div class="formcenter">
             <h:form >
                 <p:growl id="msgs" showDetail="true" />
-
-                
                 <br/>
                 <br/>
-
                         <p:messages />
                         <h:panelGrid columns="2" columnClasses="label, value" cellpadding="10">
                             <h:outputLabel for="pwd1" value="New Password: " styleClass="formele"/>

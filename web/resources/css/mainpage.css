@@ -47,3 +47,8 @@ body {
 .wallet-padding{
     margin-left: 25px;
 }
+
+.zindex{
+    position: absolute;
+    z-index: 9999;
+}
