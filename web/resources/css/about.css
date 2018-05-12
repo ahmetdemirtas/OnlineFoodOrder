@@ -1,0 +1,27 @@
+body {
+}
+
+@media (min-width: 992px) {
+    body {
+    }
+}
+
+.bg-image-full {
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+
+}
+#img{
+    height: 10%;
+    width: 100%;
+}
+p{
+    font-family: roboto_regular,Arial,Helvetica,sans-serif !important;
+
+}
+.py-5 {
+  padding-top: 3rem !important;
+}
