@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/mainpage.css"/>
+
+        </ui:define>
+        <ui:define name="body" >
+            <div id="page">
+                <div id="header-container">
+                    <div id="header">
+                        <ui:insert name="header">
+                            <ui:include src="header.xhtml" />
+                        </ui:insert>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div id="fh5co-menus" data-section="menu">
+                <div class="container">
+                    <div class="row text-center fh5co-heading row-padded">
+                        <h1 class="my-4">Midyeci Ahmet
+                            <small>(Midye ve Kokoreç)</small>
+                        </h1>
+
+                    </div>
+                    <div class="row row-padded">
+                        <div class="col-md-6">
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/midyedolma.jpg"></h:graphicImage>
+                                                <div>
+                                                    <a>Midye Dolma</a>
+                                                    <p>Tıpkı çiğdem çitlemek gibi, ruhi bir arınma için birebir: Midye Dolma</p><br/>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="1 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderOne()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/kokoreç.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Yarım Ekmek Kokoreç</a>
+                                                    <p>Bu saatte özledim denmez.Kokoreç yiyelim mi denir.</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="14 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderTwo()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/soslumidye.jpg"></h:graphicImage>
+                                                <div>
+                                                    <a>Soslu Midye</a>
+                                                    <p>Söylediklerin yenilir yutulur cinsten değil.Soslu midye söyleyelim mi?</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="14 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderThree()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/midyetava.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Midye Tava</a>
+                                                    <p>İhmale gelmez, kendini özletir.</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="10 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderFour()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/sucukekmek.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Yarım Ekmek Arası Kasap Sucuk</a>
+                                                    <p>Kapya biber, yeşilbiber, domates, kekik, pul biber</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="10 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderFive()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/salgam.jpg"></h:graphicImage>
+                                                <div>
+                                                    <a>Şalgam Suyu</a>
+                                                    <p>Doğanay şalgam</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="4 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderSix()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container -->
+
+
+                    <!-- SABİT FOOTER -->
+
+                    <div class="container">
+                        <hr />
+                        <div class="text-center center-block">
+                            <a href="https://www.facebook.com/Dedeler-Market-581244565292923/"><i class="fa fa-facebook-square fa-3x social"></i></a>
+                            <a href="https://twitter.com/dedecikim"><i class="fa fa-twitter-square fa-3x social"></i></a>
+                            <a href="https://plus.google.com/117503441386864678813"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+                            <a href="mailto:dedeler@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                            <br/>
+                            <br/>
+                            <p class="txt-railway" style=" font-size: 15px">- ©2018, DEDELER, All rights Reserved-</p>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <!-- /SABİT FOOTER -->
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

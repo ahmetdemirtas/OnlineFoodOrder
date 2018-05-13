@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/mainpage.css"/>
+
+        </ui:define>
+        <ui:define name="body" >
+            <div id="page">
+                <div id="header-container">
+                    <div id="header">
+                        <ui:insert name="header">
+                            <ui:include src="header.xhtml" />
+                        </ui:insert>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div id="fh5co-menus" data-section="menu">
+                <div class="container">
+                    <div class="row text-center fh5co-heading row-padded">
+                        <h1 class="my-4">HD İskender
+                            <small>(Döner)</small>
+                        </h1>
+
+                    </div>
+                    <div class="row row-padded">
+                        <div class="col-md-6">
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/1iskender.png"></h:graphicImage>
+                                                <div>
+                                                    <a>1 Porsiyon İskender veya 1 Porsiyon
+                                                        Acılı İskender</a>
+                                                    <p>80 gr. et döner, tırnak pide, özel sos, tereyağı, yoğurt, domates, biber</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="18 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderOne()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/2iskender.png"></h:graphicImage>
+                                                <div>
+                                                    <a>1.5 Porsiyon İskender veya 1 Porsiyon
+                                                        Patlıcanlı İskender</a>
+                                                    <p>120 gr. et döner, tırnak pide, özel sos, tereyağı, yoğurt, domates, biber,patlıcan ezmesi</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="23 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderTwo()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/corba.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Mercimek Çorbası</a>
+                                                    <p>Tereyağlı</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="7 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderThree()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/2iskender.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Duble Porsiyon İskender veya 1.5 Porsiyon
+                                                        Patlıcanlı İskender </a>
+                                                    <p>160 gr. et döner, tırnak pide, özel sos, tereyağı, yoğurt, domates, biber, patlıcan ezmesi</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="28 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderFour()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/hellimsalata.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Hellim Salata</a>
+                                                    <p>Akdeniz yeşillikleri, cherry domates, kapya biber, salatalık, hellim peynir</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="14 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderFive()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/kunefe.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Künefe</a>
+                                                    <p>Tane fıstıklı, peynirli</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="8 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderSix()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container -->
+
+
+                    <!-- SABİT FOOTER -->
+
+                    <div class="container">
+                        <hr />
+                        <div class="text-center center-block">
+                            <a href="https://www.facebook.com/Dedeler-Market-581244565292923/"><i class="fa fa-facebook-square fa-3x social"></i></a>
+                            <a href="https://twitter.com/dedecikim"><i class="fa fa-twitter-square fa-3x social"></i></a>
+                            <a href="https://plus.google.com/117503441386864678813"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+                            <a href="mailto:dedeler@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                            <br/>
+                            <br/>
+                            <p class="txt-railway" style=" font-size: 15px">- ©2018, DEDELER, All rights Reserved-</p>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <!-- /SABİT FOOTER -->
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>

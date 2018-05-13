@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:jsf="http://java.sun.com/jsf"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="/WEB-INF/include/template.xhtml">
+
+        <ui:define name="head">
+            <title>Hello JSF Bootstrap</title>
+            <!-- Custom styles for this template -->
+            <h:outputStylesheet name="css/mainpage.css"/>
+
+        </ui:define>
+        <ui:define name="body" >
+            <div id="page">
+                <div id="header-container">
+                    <div id="header">
+                        <ui:insert name="header">
+                            <ui:include src="header.xhtml" />
+                        </ui:insert>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Page Content -->
+            <div id="fh5co-menus" data-section="menu">
+                <div class="container">
+                    <div class="row text-center fh5co-heading row-padded">
+                        <h1 class="my-4">Sbarro
+                            <small>(Pizza)</small>
+                        </h1>
+
+                    </div>
+                    <div class="row row-padded">
+                        <div class="col-md-6">
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/lazanya.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Lazanya</a>
+                                                    <p>Ragu sos, parmesan peyniri ve soğanlı enfes lazanya</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="15 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderOne()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/stuffedpizza.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Supreme Stuffed Pizza</a>
+                                                    <p>İki kat özel Sbarro® hamuru arasında mozzarella peyniri,
+                                                        özel tarifimize göre hazırlanmış pepperoni, parmesan peynir,
+                                                        soğan, mantar karışımı, kırmızı ve yeşil biber.</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="35 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderTwo()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/stromboli.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Sucuklu Stromboli</a>
+                                                    <p>Özel Sbarro® hamuru içinde sucuk, mozzarella ve parmesan peyniri,
+                                                        kırmızı ve yeşil biber, mantar karışımı ve
+                                                        siyah zeytin, acılı seçeneği ile</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="13 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderThree()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/spaghetti.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Spaghetti Bolognese</a>
+                                                    <p>Kendi seçeceğiniz makarna, sos ve ek lezzetlerin nefis birleşimi</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="15 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderFour()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/gennaropizza.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Gennaro Pizza</a>
+                                                    <p>Özel Sbarro® hamuru üzerine nefis Sbarro pizza sosu, mozzarella peyniri,
+                                                        dilimlenmiş sucuk, marine mantar, mısır ve kekik!</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="25 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderFive()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                        <br/>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <h:graphicImage style="height: 110px;width: 110px" name="resimler/efsanekanatlar.png"></h:graphicImage>
+                                                <div>
+                                                    <a>Efsane Kanatlar</a>
+                                                    <p>Fırınlanmış Çıtır Çıtır Efsane Kanat</p>
+                                                </div>
+                                        </div>
+                                        <div>
+                                            <h:form>
+                                                <h:outputLabel value="18 TL"/>
+                                                &nbsp;&nbsp;
+                                                <h:commandButton action="#{restaurantBean.addOrderSix()}" value="+"/>
+                                            </h:form>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.container -->
+
+                    <!-- SABİT FOOTER -->
+
+                    <div class="container">
+                        <hr />
+                        <div class="text-center center-block">
+                            <a href="https://www.facebook.com/Dedeler-Market-581244565292923/"><i class="fa fa-facebook-square fa-3x social"></i></a>
+                            <a href="https://twitter.com/dedecikim"><i class="fa fa-twitter-square fa-3x social"></i></a>
+                            <a href="https://plus.google.com/117503441386864678813"><i class="fa fa-google-plus-square fa-3x social"></i></a>
+                            <a href="mailto:dedeler@gmail.com"><i class="fa fa-envelope-square fa-3x social"></i></a>
+                            <br/>
+                            <br/>
+                            <p class="txt-railway" style=" font-size: 15px">- ©2018, DEDELER, All rights Reserved-</p>
+                        </div>
+                        <hr />
+                    </div>
+
+                    <!-- /SABİT FOOTER -->
+                </div>
+            </div>
+        </ui:define>
+    </ui:composition>
+
+</html>
