@@ -7,22 +7,15 @@ package com;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.annotation.PostConstruct;
-import javax.annotation.Resource;
-import javax.annotation.sql.DataSourceDefinition;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.sql.DataSource;
-import javax.sql.rowset.CachedRowSet;
-import javax.sql.rowset.RowSetProvider;
 import repositories.UserRepo;
 
 
@@ -57,15 +50,11 @@ public class Customer implements Serializable {
     private String newPhone;
 
     public void init() throws SQLException {
-
-        if (userRepo.getDataSource() == null) {
-            throw new SQLException("Unable to obtain to Datasource");
-        }
-
-        Connection connection = userRepo.getDataSource().getConnection();
+        
+        Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/foodorder", "dedeler", "dedeler");
 
         if (connection == null) {
-            throw new SQLException("Unable to connect to Datasource");
+            throw new SQLException("Unable to connect to Database");
         }
             try {
                 PreparedStatement getCustomer = connection.prepareStatement("SELECT CUSTOMERID, FIRSTNAME, LASTNAME, PASSWORD, "
@@ -95,14 +84,10 @@ public class Customer implements Serializable {
     public String save() throws SQLException {
         init();
 
-        if (userRepo.getDataSource() == null) {
-            throw new SQLException("Unable to obtain to Datasource");
-        }
-
-        Connection connection = userRepo.getDataSource().getConnection();
+        Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/foodorder", "dedeler", "dedeler");
 
         if (connection == null) {
-            throw new SQLException("Unable to connect to Datasource");
+            throw new SQLException("Unable to connect to Database");
         }
         try {
             if (newPassword.length() > 0) {
