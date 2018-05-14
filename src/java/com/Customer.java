@@ -16,9 +16,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 import repositories.UserRepo;
-
-
 
 @Named(value = "customer")
 @SessionScoped
@@ -26,8 +25,7 @@ public class Customer implements Serializable {
 
     @Inject
     private UserRepo userRepo;
-    
-    
+
     private int customerID;
     private String firstname;
     private String lastname;
@@ -50,38 +48,38 @@ public class Customer implements Serializable {
     private String newPhone;
 
     public void init() throws SQLException {
-        
+
         Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/foodorder", "dedeler", "dedeler");
 
         if (connection == null) {
             throw new SQLException("Unable to connect to Database");
         }
-            try {
-                PreparedStatement getCustomer = connection.prepareStatement("SELECT CUSTOMERID, FIRSTNAME, LASTNAME, PASSWORD, "
-                        + "EMAIL, PHONENUMBER, ADDRESSID, STREET, APARTMENT, PROVINCE, TOWN, DISTRICT FROM CUSTOMER NATURAL JOIN ADDRESS "
-                        + "WHERE EMAIL = ?");
-                getCustomer.setString(1, userRepo.getEmail()); //test amaçlı customerID = 202 injectlendi userRepo, giriş yapılan email adresini alabiliriz
-                ResultSet resultSet = getCustomer.executeQuery();
-                while (resultSet.next()) {
-                    customerID = resultSet.getInt("CUSTOMERID");
-                    firstname = resultSet.getString("FIRSTNAME");
-                    lastname = resultSet.getString("LASTNAME");
-                    password = resultSet.getString("PASSWORD");
-                    email = resultSet.getString("EMAIL");
-                    phone = resultSet.getString("PHONENUMBER");
-                    addressID = resultSet.getInt("ADDRESSID");
-                    street = resultSet.getString("STREET");
-                    apartment = resultSet.getString("APARTMENT");
-                    province = resultSet.getString("PROVINCE");
-                    town = resultSet.getString("TOWN");
-                    district = resultSet.getString("DISTRICT");
-                }
-            } finally {
-                connection.close();
+        try {
+            PreparedStatement getCustomer = connection.prepareStatement("SELECT CUSTOMERID, FIRSTNAME, LASTNAME, PASSWORD, "
+                    + "EMAIL, PHONENUMBER, ADDRESSID, STREET, APARTMENT, PROVINCE, TOWN, DISTRICT FROM CUSTOMER NATURAL JOIN ADDRESS "
+                    + "WHERE EMAIL = ?");
+            getCustomer.setString(1, userRepo.getEmail()); //test amaçlı customerID = 202 injectlendi userRepo, giriş yapılan email adresini alabiliriz
+            ResultSet resultSet = getCustomer.executeQuery();
+            while (resultSet.next()) {
+                customerID = resultSet.getInt("CUSTOMERID");
+                firstname = resultSet.getString("FIRSTNAME");
+                lastname = resultSet.getString("LASTNAME");
+                password = resultSet.getString("PASSWORD");
+                email = resultSet.getString("EMAIL");
+                phone = resultSet.getString("PHONENUMBER");
+                addressID = resultSet.getInt("ADDRESSID");
+                street = resultSet.getString("STREET");
+                apartment = resultSet.getString("APARTMENT");
+                province = resultSet.getString("PROVINCE");
+                town = resultSet.getString("TOWN");
+                district = resultSet.getString("DISTRICT");
             }
+        } finally {
+            connection.close();
         }
+    }
 
-    public String save() throws SQLException {
+    public void save() throws SQLException { //return type changed from String to void
         init();
 
         Connection connection = DriverManager.getConnection("jdbc:derby://localhost:1527/foodorder", "dedeler", "dedeler");
@@ -97,23 +95,32 @@ public class Customer implements Serializable {
                 updatePassword.setString(1, getPassword());
                 updatePassword.setInt(2, getCustomerID());
                 updatePassword.executeUpdate();
+                FacesContext context = FacesContext.getCurrentInstance();
+                context.addMessage(null, new FacesMessage("Success", "Password changed!"));
             }
 
-            if (newStreet.length() > 0 || newApartment.length() > 0 || newProvince.length() > 0 || newTown.length() > 0 || newDistrict.length() > 0) {
+            if (newStreet.length() > 0 && newApartment.length() > 0 && newProvince.length() > 0 && newTown.length() > 0 && newDistrict.length() > 0) {
                 setStreet(newStreet);
                 setApartment(newApartment);
                 setProvince(newProvince);
                 setTown(newTown);
                 setDistrict(newDistrict);
-                PreparedStatement updateAddress = connection.prepareStatement("UPDATE ADDRESS SET STREET = ?, "
-                        + "APARTMENT = ?, PROVINCE = ?, TOWN = ?, DISTRICT = ? WHERE ADDRESSID = ?");
-                updateAddress.setString(1, getStreet());
-                updateAddress.setString(2, getApartment());
-                updateAddress.setString(3, getProvince());
-                updateAddress.setString(4, getTown());
-                updateAddress.setString(5, getDistrict());
-                updateAddress.setInt(6, getAddressID());
-                updateAddress.executeUpdate();
+                if (checkCity(connection)) {
+                    PreparedStatement updateAddress = connection.prepareStatement("UPDATE ADDRESS SET STREET = ?, "
+                            + "APARTMENT = ?, PROVINCE = ?, TOWN = ?, DISTRICT = ? WHERE ADDRESSID = ?");
+                    updateAddress.setString(1, getStreet());
+                    updateAddress.setString(2, getApartment());
+                    updateAddress.setString(3, getProvince());
+                    updateAddress.setString(4, getTown());
+                    updateAddress.setString(5, getDistrict());
+                    updateAddress.setInt(6, getAddressID());
+                    updateAddress.executeUpdate();
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage("Success", "New address saved!"));
+                } else {
+                    FacesContext context = FacesContext.getCurrentInstance();
+                    context.addMessage(null, new FacesMessage("Couldn't found city", "City must be within Turkey!"));
+                }
             }
 
             if (newPhone.length() > 0) {
@@ -124,20 +131,44 @@ public class Customer implements Serializable {
                 updatePhone.setInt(2, getCustomerID());
                 updatePhone.executeUpdate();
                 FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage("Success", "Changes saved!"));
-                
+                context.addMessage(null, new FacesMessage("Success", "Phone number changed!"));
+
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             connection.close(); // return this connection to pool
 
         } // end finally
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("Success", "Changes saved!"));
-        return "mainpage?faces-redirect=true";
-        
+        newStreet = "";
+        newApartment = "";
+        newProvince = "";
+        newTown = "";
+        newProvince = "";
+        newDistrict = "";
+        newPhone = "";
+        RequestContext.getCurrentInstance().update(":editform");
+//        return "mainpage?faces-redirect=true";
+    }
+
+    //checks whether the city entered is in the database
+    private boolean checkCity(Connection con) throws SQLException {
+        PreparedStatement cityCheckPs = con.prepareStatement("SELECT PROVINCE, TOWN, DISTRICT FROM CITY WHERE PROVINCE = ? AND TOWN = ? AND DISTRICT = ?");
+        cityCheckPs.setString(1, newProvince);
+        cityCheckPs.setString(2, newTown);
+        cityCheckPs.setString(3, newDistrict);
+        ResultSet resultSet = cityCheckPs.executeQuery();
+        //if entered city is matched with the City table in our DB there must be one value in the resultset
+        int sizeOfRS = 0;
+        while (resultSet.next()) {
+            sizeOfRS++;
+        }
+        if (sizeOfRS == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getNewPassword() {

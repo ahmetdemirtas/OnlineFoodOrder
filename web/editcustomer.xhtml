@@ -30,7 +30,7 @@
             
             <h3 style="text-align: center">You can change your password, address and phone number</h3>
             <div class="formcenter">
-            <h:form >
+                <h:form id="editform">
                 <p:growl id="msgs" showDetail="true" />
                 <br/>
                 <br/>
@@ -39,32 +39,50 @@
                             <h:outputLabel for="pwd1" value="New Password: " styleClass="formele"/>
                             <p:password id="pwd1" value="#{customer.newPassword}" match="pwd2" label="New Password" feedback="true"
                                         promptLabel="Please enter new password" weakLabel="Weak"
-                                        goodLabel="Good" strongLabel="Strong" />
+                                        goodLabel="Good" strongLabel="Strong" >
+                                <f:validateLength maximum="12"/>
+                            </p:password>
 
                             <h:outputLabel for="pwd2" value="Confirm Password: " styleClass="formele" />
                             <p:password id="pwd2" label="Confirm Password" required="false" promptLabel="Confirm new password"/>
 
                             <h:outputText value="Street: " styleClass="formele"/>
-                            <p:inputText value="#{customer.newStreet}" />
+                            <p:inputText value="#{customer.newStreet}">
+                                <f:validateLength maximum="30"/>
+                            </p:inputText>
 
                             <h:outputText value="Apartment: " styleClass="formele"/>
-                            <p:inputText value="#{customer.newApartment}" />
+                            <p:inputText value="#{customer.newApartment}" >
+                                <f:validateLength maximum="30"/>
+                            </p:inputText>
 
                             <h:outputText value="Province: " styleClass="formele"/>
-                            <p:inputText value="#{customer.newProvince}" />
+                            <p:inputText value="#{customer.newProvince}">
+                                <f:validateLength maximum="20"/>
+                            </p:inputText>
 
                             <h:outputText value="Town: " styleClass="formele"/>
-                            <p:inputText value="#{customer.newTown}" />
+                            <p:inputText value="#{customer.newTown}">
+                                <f:validateLength maximum="20"/>
+                            </p:inputText>
 
                             <h:outputText value="District: " styleClass="formele"/>
-                            <p:inputText value="#{customer.newDistrict}" />
+                            <p:inputText value="#{customer.newDistrict}">
+                                <f:validateLength maximum="20"/>
+                            </p:inputText>
                             
                             <h:outputText value="Phone: " styleClass="formele"/>
-                            <p:inputText value="#{customer.newPhone}" label="Phone"/>
+                            <p:inputText value="#{customer.newPhone}" label="Phone">
+                                <f:validateRegex pattern="(((0 ?\(\d{3}\) ?)|(0 ?\d{3})) ?\d{3} ?((\d{4})|(\d{2} \d{2})))?"/>
+                            </p:inputText>
                         </h:panelGrid>
                         <br/>
                         <br/>
-                        <h:commandButton value="Save" action="#{customer.save()}" styleClass="btn btn-lg btn-primary text-center savebutton"/>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:commandButton value="Back" action="mainpage" styleClass="btn btn-lg btn-primary text-center savebutton"/>
+                            <h:commandButton value="Save" action="#{customer.save()}" styleClass="btn btn-lg btn-primary text-center savebutton"/>
+                        </h:panelGrid>
+
             </h:form>
             </div>
          </ui:define>
